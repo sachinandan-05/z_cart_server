@@ -1,12 +1,12 @@
-class ApiResponse {
+class apiResponse {
     constructor(
-        {statusCode,data,massage}="success"
+        statusCode,data,message="success from api response"
     ){
-        this.statusCode=statusCode
-        this.data=data
-        this.massage=massage
-        this.success= statusCode <400
+        this.statusCode=statusCode;
+        this.data=data;
+        this.message=message;
+        this.success= statusCode <400;
     }
 }
 
-export {ApiResponse}
+export default apiResponse
