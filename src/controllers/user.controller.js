@@ -26,7 +26,7 @@ const signUp = async(req,res)=>{
     
         const {username,email,password,profilePic}=req.body
         // console.log(username);
-        console.log(username,email,password,profilePic)
+        // console.log(username,email,password,profilePic)
 
         const alredyExist=await User.findOne({email})
         console.log(alredyExist)
@@ -146,17 +146,22 @@ const signUp = async(req,res)=>{
 
     const userDetails= async(req,res)=>{
         try {
-            console.log("user Id:",req.userId)
+            // console.log("user Id:",req.userId)
+            const id= req.userId
+            if (id) {
+                const user= await User.findById(req.userId)
+            // console.log("user Details:",user)
 
-            const user= await User.findById(req.userId)
-            console.log("user Details:",user)
-
-            res.status(200).json({
+          return  res.status(200).json({
                 data:user,
                 message:"users details",
                 success:true,
                 error:false
             })
+                
+            }
+
+            
         } catch (err) {
             res.status(400).json(
                 {

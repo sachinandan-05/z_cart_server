@@ -20,7 +20,7 @@ const sendProduct = async (req, res) => {
             brandName
 
         })
-        console.log(newProduct)
+        // console.log(newProduct)
         await newProduct.save()
         console.log("product details", newProduct)
 
@@ -62,7 +62,7 @@ const updateProductsDetails = async (req, res) => {
     try {
         const { _id, productName, catogry, productImage, price, sellingPrice, description, brandName } = req?.body
 
-        console.log("id ", _id, productName, catogry, productImage, price, sellingPrice, description, brandName)
+        // console.log("id ", _id, productName, catogry, productImage, price, sellingPrice, description, brandName)
 
         const updatedProduct = await Product.findByIdAndUpdate(_id, {
 
@@ -75,7 +75,7 @@ const updateProductsDetails = async (req, res) => {
                 brandName
             }
         }, { new: true })
-        console.log("updatedProduct", updatedProduct)
+        // console.log("updatedProduct", updatedProduct)
 
         res.json({
             message: "product updated successfully",
@@ -98,7 +98,7 @@ const updateProductsDetails = async (req, res) => {
 const deleteProduct = async (req, res) => {
     try {
         const { _id } = req.body
-        console.log("id :", _id)
+        // console.log("id :", _id)
         if (!_id) {
             throw new Error("Id is not getting")
 
@@ -109,7 +109,7 @@ const deleteProduct = async (req, res) => {
             throw new Error("not getting product has to be delete")
 
         }
-        console.log("detail of deleted product", deletedProduct)
+        // console.log("detail of deleted product", deletedProduct)
         res.status(200)
             .json({
                 message: "product deleted success fully",
@@ -181,7 +181,7 @@ const getProductCatogryWise = async (req, res) => {
 
         const product = await Product.find({ catogry })
 
-        console.log("product list catogry wise", product)
+        // console.log("product list catogry wise", product)
 
         res.status(200)
             .json({
@@ -208,11 +208,11 @@ const getProductDetails=async(req,res)=>{
     try {
         const {productId}=req.body
 
-        console.log("productId",productId)
+        // console.log("productId",productId)
 
         const producDetails= await Product.findById(productId)
 
-        console.log("productDeatails",producDetails)
+        // console.log("productDeatails",producDetails)
         res.status(200)
         .json({
             data: producDetails,

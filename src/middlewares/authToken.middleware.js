@@ -5,7 +5,7 @@ async function authToken(req,res,next){
         const token= await req.cookies?.accessToken
 
         if (!token) {
-            return res.json({
+          return   res.json({
                 message:"user is not login",
                 error: "true",
                 success:"false"
@@ -24,12 +24,18 @@ async function authToken(req,res,next){
             }
             
             req.userId=decoded?._id
+            
+            console.log("userId",req.userId)
             // next()
         });
+       
+            
+        
         
 
         console.log("midleware called successfully")
-        console.log ("tokens:    -",token)
+           
+        // console.log ("tokens:    -",token)
         next()
     } catch (err) {
 

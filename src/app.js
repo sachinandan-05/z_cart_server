@@ -21,6 +21,7 @@ app.use(express.static("public"))
 //import routes
 import userRouter from "./routers/user.route.js"
 import productRouter from "./routers/product.route.js";
+import cartRouter from "./routers/cart.route.js"
 
 
 
@@ -28,6 +29,8 @@ import productRouter from "./routers/product.route.js";
 
 app.use("/api/v1/user",userRouter)
 app.use("/api/v1/product",productRouter)
+app.use("/api/v1/cart",cartRouter)
+
 
 
 export default app ;
