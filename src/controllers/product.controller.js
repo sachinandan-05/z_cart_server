@@ -233,6 +233,71 @@ const getProductDetails=async(req,res)=>{
 
 }
 
+//------------------------------searchProduct---------------------------------------------
+
+const searchProductbyName=async(req,res)=>{
+
+    try{
+        const query = req.query.q 
+        console.log("product:",query)
+
+        const regex = new RegExp(query,'i','g')
+
+        const product = await Product.find({
+            "$or" : [
+                {
+                    productName : regex
+                },
+                {
+                    catogry : regex
+                }
+            ]
+        })
+
+
+        res.json({
+            data  : product ,
+            message : "Search Product list",
+            error : false,
+            success : true
+        })
+    }catch(err){
+        res.json({
+            message : err.message || err,
+            error : true,
+            success : false
+        })
+    }
+}
+
+//-------------------------------filterProduct----------------------------------------------
+
+const filterProduct=async(req,res)=>{
+    try{
+        const catogryList = req?.body?.catogry || []
+        console.log("catogry",catogryList)
+
+        const product = await Product.find({
+            catogry :  {
+                "$in" : catogryList
+            }
+        })
+
+        res.json({
+            data : product,
+            message : "product",
+            error : false,
+            success : true
+        })
+ }catch(err){
+    res.json({
+        message : err.message || err,
+        error : true,
+        success : false
+    })
+ }
+}
+
 
 
 export {
@@ -242,6 +307,9 @@ export {
     deleteProduct,
     getListOfProductCategrywise,
     getProductCatogryWise,
-    getProductDetails
+    getProductDetails,
+    searchProductbyName,
+    filterProduct
+
 
 }

@@ -22,7 +22,7 @@ const generateAccessToken= async (userId)=>{
 
 const signUp = async(req,res)=>{
 
-    // const profilePic=req.file
+    
     
         const {username,email,password,profilePic}=req.body
         // console.log(username);
@@ -100,42 +100,57 @@ const signUp = async(req,res)=>{
 
     const loginUser=async (req,res)=>{
 
-        const {email,password}=req.body
-
-        if(!email){
-            throw new Error ("please enter email")
+       try {
+         const {email,password}=req.body
+ 
+         if(!email){
+             throw new Error ("please enter email")
+         }
+         if (!password) {
+             throw new Error("please enter password")
+             
+         }
+ 
+         const user= await  User.findOne({email});
+ 
+         if (!user) {
+             throw new Error("user is not resistered please signup first")
+             
+         }
+         const cheakPassword= await user.isPasswordCorrect(password)
+         if (!cheakPassword) {
+             throw new Error("Please cheak password")
+         }
+         console.log(cheakPassword,user._id)
+         const accessToken= await generateAccessToken(user._id)
+         // console.log("accessToken:",accessToken);
+ 
+         const LoggedInUser= await User.findById(user._id).select("-password ")
+ 
+         const Options={
+             httpOnly: true,
+             secure:true
+         }
+ 
+         return res.status(200)
+         .cookie("accessToken",accessToken,Options)
+         .json({
+            data:{user,LoggedInUser,accessToken},
+            success:true,
+            message:"login successfully !!",
+            error:false
         }
-        if (!password) {
-            throw new Error("please enter password")
             
-        }
-
-        const user= await  User.findOne({email});
-
-        if (!user) {
-            throw new Error("user is not resistered please signup first")
-            
-        }
-        const cheakPassword= await user.isPasswordCorrect(password)
-        if (!cheakPassword) {
-            throw new Error("Please cheak password")
-        }
-        console.log(cheakPassword,user._id)
-        const accessToken= await generateAccessToken(user._id)
-        // console.log("accessToken:",accessToken);
-
-        const LoggedInUser= await User.findById(user._id).select("-password ")
-
-        const Options={
-            httpOnly: true,
-            secure:true
-        }
-
-        return res.status(200)
-        .cookie("accessToken",accessToken,Options)
-        .json(
-            new apiResponse(200,{user,LoggedInUser,accessToken},"user logined successfully")
         )
+         
+       } catch (error) {
+        res.json({
+            error:true,
+            success:false,
+            message: error.message || err
+        })
+        
+       }
         // console.log(user)
 
 

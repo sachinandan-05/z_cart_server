@@ -6,7 +6,7 @@ async function authToken(req,res,next){
 
         if (!token) {
           return   res.json({
-                message:"user is not login",
+                message:"Please login..!",
                 error: "true",
                 success:"false"
             })
