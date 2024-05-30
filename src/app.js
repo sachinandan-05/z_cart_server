@@ -9,6 +9,7 @@ const app = express();
 app.use(cors(
     {
         origin:process.env.CORS_ORIGIN,
+        methods:["post","get","delete","update"]
         credentials:true
 
     }
