@@ -10,6 +10,7 @@ app.use(cors(
     {
         origin:"https://e-com-client-td2p.vercel.app/",
         methods:["POST","GET","DELETE","UPDATE"],
+         allowedHeaders: 'Content-Type,Authorization',
         credentials:true
 
     }
