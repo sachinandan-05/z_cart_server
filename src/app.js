@@ -8,7 +8,7 @@ const app = express();
 
 app.use(cors(
     {
-        origin:process.env.CORS_ORIGIN,
+        origin:"https://e-com-client-td2p.vercel.app/",
         methods:["post","get","delete","update"],
         credentials:true
 
