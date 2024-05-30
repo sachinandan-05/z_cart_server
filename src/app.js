@@ -9,7 +9,7 @@ const app = express();
 app.use(cors(
     {
         origin:"https://e-com-client-td2p.vercel.app/",
-        methods:["post","get","delete","update"],
+        methods:["POST","GET","DELETE","UPDATE"],
         credentials:true
 
     }
